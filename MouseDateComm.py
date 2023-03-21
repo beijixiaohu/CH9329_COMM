@@ -49,7 +49,7 @@ class MouseDateComm:
             DATA += self.hex_dict[ctrl]
 
         # 坐标
-        X_MAX = 3840
+        X_MAX = 3840 # 这里的X_MAX、Y_MAX需要改为自己的屏幕分辨率
         Y_MAX = 2160
         X_Cur = (4096 * x) // X_MAX
         Y_Cur = (4096 * y) // Y_MAX
