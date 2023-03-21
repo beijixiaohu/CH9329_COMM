@@ -73,7 +73,7 @@ class KeyboardDateComm:
             DATA += self.control_button_hex_dict[ctrl]
 
         # DATA固定码
-        DATA += b'\x00\x00'
+        DATA += b'\x00'
 
         # 读入data
         for i in range(0, len(data), 2):
