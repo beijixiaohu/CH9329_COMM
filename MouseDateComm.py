@@ -96,7 +96,7 @@ class MouseDateComm:
         x (int)：鼠标的x坐标。
         y (int)：鼠标的y坐标。
         ctrl (str)：鼠标的控制键。
-        serial (Serial)：鼠标的串口。
+        port (Serial)：鼠标的串口。
     
     返回：
         bool：如果成功发送数据，则返回True，否则返回False。

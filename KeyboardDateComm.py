@@ -49,7 +49,7 @@ class KeyboardDateComm:
     发送数据到串口。
     
     参数:
-        data (str): 要发送的数据。
+        data (str): 要发送的按键信息。
         ctrl (str): 要发送的控制键。
         port (serial): 要发送数据的串口。
     
