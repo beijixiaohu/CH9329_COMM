@@ -4,10 +4,7 @@ import serial
 
 class MouseDateComm:
     """
-    初始化Mouse_DateComm类。
-    
     属性：
-        ser (serial.Serial)：通信的串行对象。
         hex_dict (dict)：命令的十六进制值的字典。
     """
 
