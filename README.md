@@ -12,7 +12,8 @@ send_data(data, [ctrl], [port])
 ```
 
 参数:
-- data (str): 要发送的按键信息，一次最多发送6个按键信息。
+- data (str): 要发送的按键信息，一次最多发送6个按键信息。<br>
+  按键信息包含在字典中，默认仅包含了26个字母按键，比如按键`C`对应`CC`，如需要使用其它按键可以自行根据协议文档扩充
 - ctrl (str): 可选，要发送的控制键，不填则默认不按下控制键。
 - port (serial): 可选，要发送数据的串口，如果不填则默认为serial。
 
@@ -63,7 +64,7 @@ serial.ser.close()  # 关闭串口
 
 ## 发送鼠标数据包
 
-`MouseDateComm` 类提供了向串口快速发送键盘数据包的两个方法：`send_data_absolute()`、`send_data_relatively()`
+`MouseDateComm` 类提供了向串口快速发送鼠标数据包的两个方法：`send_data_absolute()`、`send_data_relatively()`
 
 ### send_data_absolute()
 
