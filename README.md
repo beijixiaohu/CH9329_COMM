@@ -63,7 +63,7 @@ serial.ser.close()  # 关闭串口
 
 ## 发送鼠标数据包
 
-`MouseDateComm` 类提供了向串口快速发送键盘数据包的两个方法：`send_data_absolute()`、`send_data_relatively()`
+`MouseDateComm` 类提供了向串口快速发送鼠标数据包的两个方法：`send_data_absolute()`、`send_data_relatively()`
 
 ### send_data_absolute()
 
