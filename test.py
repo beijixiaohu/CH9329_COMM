@@ -6,7 +6,9 @@ serial.ser = serial.Serial('COM4', 9600)  # 开启串口
 
 # 键盘输出helloworld
 dc = KeyboardDateComm()
-dc.send_data('',0x03) # 按下ctrl+shift
+dc.send_data('HHEELLLLOO')  # 按下HELLO
+dc.release()  # 松开
+dc.send_data('WWOORRLLDD')  # 按下WORLD
 dc.release()  # 松开
 
 
