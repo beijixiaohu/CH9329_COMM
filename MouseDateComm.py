@@ -95,7 +95,7 @@ class MouseDateComm:
     参数：
         x (int)：鼠标的x坐标。
         y (int)：鼠标的y坐标。
-        ctrl (str)：鼠标的控制键。
+        ctrl (str)：按下的控制键。
         port (Serial)：鼠标的串口。
     
     返回：
