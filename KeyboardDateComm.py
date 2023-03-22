@@ -1,10 +1,12 @@
 import serial
 
+
 class KeyboardDateComm:
     """
     此类初始化两个字典，control_button_hex_dict和normal_button_hex_dict，它们包含键盘上控制和普通按钮的十六进制值。
     如果你需要更多的按钮，请自行根据协议文档补充
     """
+
     def __init__(self):
         self.control_button_hex_dict = {"NULL": b'\x00',
                                         "R_WIN": b"\x80",
@@ -56,6 +58,7 @@ class KeyboardDateComm:
     返回:
         bool: 如果数据成功发送，则为True，否则为False。
     """
+
     def send_data(self, data, ctrl='', port=serial):
         # 将字符转写为数据包
         HEAD = b'\x57\xAB'  # 帧头
@@ -116,5 +119,6 @@ class KeyboardDateComm:
     返回:
         None
     """
+
     def release(serial):
         serial.send_data('')

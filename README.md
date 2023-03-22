@@ -107,7 +107,6 @@ from MouseDateComm import MouseDateComm
 serial.ser = serial.Serial('COM4', 9600)  # 开启串口
 
 # （绝对）鼠标移动到屏幕的左上100*100的位置
-from MouseDateComm import Mouse_DateComm
 dc = MouseDateComm()
 dc.send_data_absolute(100,100)
 
@@ -152,10 +151,10 @@ from MouseDateComm import MouseDateComm
 
 serial.ser = serial.Serial('COM4', 9600)  # 开启串口
 
-# （相对）鼠标右移100px 下移100px
+# （相对）鼠标右移100px 下移100px并单击左键
 dc2 = MouseDateComm()
 dc2.send_data_relatively(100, -100)
-dc2.click()
+dc2.click() # 单击左键
 
 serial.ser.close()  # 关闭串口
 ```
