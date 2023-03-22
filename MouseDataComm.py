@@ -2,7 +2,7 @@ import random
 import time
 import serial
 
-class MouseDateComm:
+class MouseDataComm:
     """
     属性：
         hex_dict (dict)：命令的十六进制值的字典。

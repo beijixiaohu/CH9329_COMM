@@ -3,7 +3,7 @@
 
 ## 发送键盘数据包
 
-`KeyboardDateComm` 类提供了向串口快速发送键盘数据包的方法：`send_data()`
+`KeyboardDataComm` 类提供了向串口快速发送键盘数据包的方法：`send_data()`
 
 **语法：**
 
@@ -41,19 +41,19 @@ send_data(data, [ctrl], [port])
 示例：
 
 ```python
-dc = KeyboardDateComm()
+dc = KeyboardDataComm()
 dc.send_data('',0x03) # 按下ctrl+shift
 ```
 **示例：**
 
 ```python
 import serial
-from KeyboardDateComm import KeyboardDateComm
+from KeyboardDataComm import KeyboardDataComm
 
 serial.ser = serial.Serial('COM4', 9600)  # 开启串口
 
 # 键盘输出helloworld
-dc = KeyboardDateComm()
+dc = KeyboardDataComm()
 dc.send_data('HHEELLLLOO')  # 按下HELLO
 dc.release()  # 松开
 dc.send_data('WWOORRLLDD')  # 按下WORLD
@@ -64,7 +64,7 @@ serial.ser.close()  # 关闭串口
 
 ## 发送鼠标数据包
 
-`MouseDateComm` 类提供了向串口快速发送鼠标数据包的两个方法：`send_data_absolute()`、`send_data_relatively()`
+`MouseDataComm` 类提供了向串口快速发送鼠标数据包的两个方法：`send_data_absolute()`、`send_data_relatively()`
 
 ### send_data_absolute()
 
@@ -102,13 +102,13 @@ send_data_absolute(x, y, [ctrl], [port])
 
 ```python
 import serial
-from MouseDateComm import MouseDateComm
+from MouseDataComm import MouseDataComm
 
 serial.ser = serial.Serial('COM4', 9600)  # 开启串口
 
 # （绝对）鼠标移动到屏幕的左上100*100的位置
-dc = MouseDateComm()
-dc.send_data_absolute(100,100)
+dc = MouseDataComm()
+dc.send_data_absolute(100, 100)
 
 serial.ser.close()  # 关闭串口
 ```
@@ -147,14 +147,14 @@ send_data_relatively(x, y, [ctrl], [port])
 
 ```python
 import serial
-from MouseDateComm import MouseDateComm
+from MouseDataComm import MouseDataComm
 
 serial.ser = serial.Serial('COM4', 9600)  # 开启串口
 
 # （相对）鼠标右移100px 下移100px并单击左键
-dc2 = MouseDateComm()
+dc2 = MouseDataComm()
 dc2.send_data_relatively(100, -100)
-dc2.click() # 单击左键
+dc2.click()  # 单击左键
 
 serial.ser.close()  # 关闭串口
 ```
