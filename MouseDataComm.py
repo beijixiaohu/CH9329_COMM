@@ -213,7 +213,7 @@ class MouseDataComm:
         # 定义prefix_bezier_array数组，存放差值
         for i in range(len(prefix_bezier_array)):
             self.send_data_relatively(int(prefix_bezier_array[i][0]), int(prefix_bezier_array[i][1]), ctrl, port)
-            time.sleep(0.002)
+            time.sleep(0.0016)
 
     """
     这个函数检查鼠标指针在屏幕上的理论值和实际值之间的差异。
@@ -298,7 +298,7 @@ class MouseDataComm:
         distance = ((end_x - start_x) ** 2 + (end_y - start_y) ** 2) ** 0.5
         difference_ratio = distance / (((dest_x ** 2) + (dest_y ** 2)) ** 0.5)
         # test
-        # print("理论值与实际值之间的差异：", (difference_ratio * 100), "%")
+        print("理论值与实际值之间的差异：", (difference_ratio * 100), "%")
 
     """
     单击鼠标左键。
