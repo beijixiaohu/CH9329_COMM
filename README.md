@@ -227,7 +227,7 @@ move_to_basic(x, y, ctrl, port)
 >
 > 并根据差异的平均值对目标(x,y)进行修正，在此期间鼠标指针会自动在屏幕上跳跃或者移动，请不要触碰你的实际物理鼠标以免影响检查。
 >
-> 其会将在修正值存储在 `\corrector\information.json`中，以后调用该方法时会自动到文件中读取修正值
+> 其会将在修正值存储在 `\corrector\information.json`中，以后调用该方法时会自动到文件中读取修正值，如果需要重新生成校正值，请手动删除 `\corrector\information.json` 文件
 
 **语法：**
 
