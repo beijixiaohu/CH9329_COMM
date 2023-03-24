@@ -1,14 +1,12 @@
 # ch9329_comm
 
-提供CH9329芯片的键盘/鼠标串口快捷通信方法
+提供基于 CH9329 芯片的键盘/鼠标串口快捷通信方法
 
-结构介绍：
+导入包：
 
-| 类                 | 说明         |
-| ------------------ | ------------ |
-| `KeyboardDataComm` | 键盘数据发送 |
-| `MouseDataComm`    | 鼠标数据发送 |
-| `BezierTrajectory` | 鼠标路径生成 |
+```bash
+pip install ch9329Comm
+```
 
 
 
@@ -22,7 +20,31 @@
 
 ## 发送键盘数据包
 
-`KeyboardDataComm` 类提供了向串口快速发送键盘数据包的方法：`send_data()`
+`keyboard` 模块的 `DataComm` 类中提供了向串口快速发送键盘数据包的方法：`send_data()`
+
+### 初始化
+
+**语法：**
+
+```python
+ch9329Comm.keyboard.DataComm()
+```
+
+参数：无
+
+返回：
+
+- 一个 keyboard 模块 DataComm 类的实例
+
+**示例：**
+
+```python
+import ch9329Comm
+
+keyboard = ch9329Comm.keyboard.DataComm()
+```
+
+### send_data()
 
 **语法：**
 
@@ -67,29 +89,56 @@ dc.send_data('',0x03) # 按下ctrl+shift
 
 ```python
 import serial
-from KeyboardDataComm import KeyboardDataComm
+import ch9329Comm
 
 serial.ser = serial.Serial('COM4', 115200)  # 开启串口
 
 # 键盘输出helloworld
-dc = KeyboardDataComm()
-dc.send_data('HHEELLLLOO')  # 按下HELLO
-dc.release()  # 松开
-dc.send_data('WWOORRLLDD')  # 按下WORLD
-dc.release()  # 松开
+keyboard = ch9329Comm.keyboard.DataComm()
+keyboard.send_data('HHEELLLLOO')  # 按下HELLO
+keyboard.release()  # 松开
+keyboard.send_data('WWOORRLLDD')  # 按下WORLD
+keyboard.release()  # 松开
 
 serial.ser.close()  # 关闭串口
 ```
 
 ## 发送鼠标数据包
 
-`MouseDataComm` 类提供了向串口快速发送鼠标数据包的三个方法：
+`mouse` 模块的 `DataComm` 类中提供了向串口快速发送鼠标数据包的四个方法：
 
 - `send_data_absolute()`：绝对移动，将鼠标闪现到相对于屏幕左上角距离x,y的位置
 
 - `send_data_relatively()`：相对移动，将鼠标闪现到以鼠标当前位置为原点的坐标系上点(x,y)的位置
 - `move_to_basic()`：基于`send_data_relatively()`，其会自动生成随机路径，将鼠标指针沿轨迹移动到点(x,y)的位置
 - `move_to()`（推荐）:对于 `move_to()` 的改进方法，添加了自动误差校正
+
+### 初始化
+
+**语法：**
+
+```python
+ch9329Comm.mouse.DataComm([screen_width],[screen_height])
+```
+
+参数：
+
+- screen_width：可选，屏幕的宽度，默认为3840
+- screen_height：可选，屏幕的高度，默认为2160
+
+返回：
+
+- 一个 mouse 模块 DataComm 类的实例
+
+**示例：**
+
+```python
+import ch9329Comm
+
+mouse = ch9329Comm.mouse.DataComm(1920,1080) # 屏幕分辨率为1920*1080
+```
+
+
 
 ### send_data_absolute()
 
@@ -127,13 +176,12 @@ send_data_absolute(x, y, [ctrl], [port])
 
 ```python
 import serial
-from MouseDataComm import MouseDataComm
+import ch9329Comm
 
 serial.ser = serial.Serial('COM4', 115200)  # 开启串口
 
-# （绝对）鼠标移动到屏幕的左上100*100的位置
-dc = MouseDataComm()
-dc.send_data_absolute(100, 100)
+mouse = ch9329Comm.mouse.DataComm()
+mouse.send_data_absolute(100, 100) # （绝对）鼠标移动到屏幕的左上100*100的位置
 
 serial.ser.close()  # 关闭串口
 ```
@@ -172,14 +220,14 @@ send_data_relatively(x, y, [ctrl], [port])
 
 ```python
 import serial
-from MouseDataComm import MouseDataComm
+import ch9329Comm
 
 serial.ser = serial.Serial('COM4', 115200)  # 开启串口
 
 # （相对）鼠标右移100px 下移100px并单击左键
-dc2 = MouseDataComm()
-dc2.send_data_relatively(100, -100)
-dc2.click()  # 单击左键
+mouse = ch9329Comm.mouse.DataComm()
+mouse.send_data_relatively(100, -100)
+mouse.click()  # 单击左键
 
 serial.ser.close()  # 关闭串口
 ```
@@ -261,12 +309,12 @@ move_to(dest_x, dest_y, ctrl, port)
 
 ```python
 import serial
-from MouseDataComm import MouseDataComm
+import ch9329Comm
 
 serial.ser = serial.Serial('COM4', 115200)  # 开启串口
 
-dc2 = MouseDataComm()
-dc2.move_to(-230,-480) # 生成路径并沿路径移动到(-230,-480)
+mouse = ch9329Comm.mouse.DataComm()
+mouse.move_to(-230,-480) # 生成路径并沿路径移动到(-230,-480)
 
 serial.ser.close()  # 关闭串口
 ```
