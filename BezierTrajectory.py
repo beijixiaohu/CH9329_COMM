@@ -2,6 +2,7 @@ import math
 import random
 import numpy as np
 
+__all__ = ['BezierTrajectory']
 
 class BezierTrajectory:
 

@@ -7,6 +7,9 @@ import serial
 from BezierTrajectory import BezierTrajectory
 
 
+__all__ = ['MouseDataComm']
+
+
 class MouseDataComm:
     """
     属性：
