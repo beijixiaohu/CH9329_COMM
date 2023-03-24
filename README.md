@@ -2,6 +2,8 @@
 
 提供基于 CH9329 芯片的键盘/鼠标串口快捷通信方法
 
+[![ch9329Comm version](https://badge.fury.io/py/ch9329Comm.svg)](https://badge.fury.io/py/ch9329Comm)
+
 导入包：
 
 ```bash
