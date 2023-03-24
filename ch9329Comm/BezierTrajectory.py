@@ -2,7 +2,6 @@ import math
 import random
 import numpy as np
 
-__all__ = ['BezierTrajectory']
 
 class BezierTrajectory:
 
@@ -39,7 +38,7 @@ class BezierTrajectory:
 
         elif type_ == 3:
             data_trajectory = [np.array([0, 0]), np.array([(x[1] - x[0]) * 0.8, (x[1] - x[0]) * 0.6]),
-                              np.array([x[1] - x[0], 0])]
+                               np.array([x[1] - x[0], 0])]
             fun = self._bztsg(data_trajectory)
             number_list_re = [0]
             for i in range(1, number_list):
@@ -48,7 +47,8 @@ class BezierTrajectory:
                 number_list_re = number_list_re[::-1]
         number_list_re = np.abs(np.array(number_list_re) - max(number_list_re))
         biao_number_list = ((number_list_re - number_list_re[number_list_re.argmin()]) / (
-                number_list_re[number_list_re.argmax()] - number_list_re[number_list_re.argmin()])) * (x[1] - x[0]) + x[0]
+                number_list_re[number_list_re.argmax()] - number_list_re[number_list_re.argmin()])) * (x[1] - x[0]) + x[
+                               0]
         biao_number_list[0] = x[0]
         biao_number_list[-1] = x[1]
         return biao_number_list

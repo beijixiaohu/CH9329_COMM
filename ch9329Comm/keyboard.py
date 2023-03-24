@@ -1,10 +1,7 @@
 import serial
 
 
-__all__ = ['KeyboardDataComm']
-
-
-class KeyboardDataComm:
+class DataComm:
     """
     此类初始化两个字典，control_button_hex_dict和normal_button_hex_dict，它们包含键盘上控制和普通按钮的十六进制值。
     如果你需要更多的按钮，请自行根据协议文档补充

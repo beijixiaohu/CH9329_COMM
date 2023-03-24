@@ -4,19 +4,17 @@ import os
 import json
 import pyautogui as pyautogui
 import serial
-from BezierTrajectory import BezierTrajectory
+from . import BezierTrajectory
 
 
-__all__ = ['MouseDataComm']
-
-
-class MouseDataComm:
+class DataComm:
     """
     属性：
-        hex_dict (dict)：命令的十六进制值的字典。
+        screen_width: 屏幕宽度
+        screen_height: 屏幕高度
     """
 
-    def __init__(self):
+    def __init__(self, screen_width=3840, screen_height=2160):
         self.hex_dict = {"ST": b'\x02',
                          "NU": b"\x00",
                          "LE": b"\x01",
@@ -28,9 +26,8 @@ class MouseDataComm:
         self.deviation = 0
         self.bias = 0
         self.type = 0
-        # 注意！！！！！！！这里的X_MAX、Y_MAX需要改为自己的屏幕分辨率
-        self.X_MAX = 3840
-        self.Y_MAX = 2160
+        self.X_MAX = screen_width
+        self.Y_MAX = screen_height
 
     """
     发送数据到串口，将鼠标光标移动到屏幕上的绝对位置。
@@ -181,7 +178,7 @@ class MouseDataComm:
         deviation = random.randint(0, int(min(abs(x) % 499, abs(y) % 499) / 5))
         bias = random.uniform(0, 0.8)
         type_ = 3
-        bezierTrajectory = BezierTrajectory()
+        bezierTrajectory = BezierTrajectory.BezierTrajectory()
         bezier_array = bezierTrajectory.get_track([0, 0], coordinate, number_list, le, deviation, bias, type_)
 
         # test
@@ -232,7 +229,7 @@ class MouseDataComm:
 
     def check_difference_ratio(self, x: int, y: int) -> float:
         # 创建一个MouseDataComm类的实例
-        mouse = MouseDataComm()
+        mouse = DataComm()
         # 调用send_data_absolute方法将鼠标指针移动到屏幕的中心
         mouse.send_data_absolute(int(self.X_MAX / 2), int(self.Y_MAX / 2))
         # 调用move_to方法，参数为(50,50)

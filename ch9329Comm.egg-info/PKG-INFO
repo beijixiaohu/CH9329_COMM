@@ -1,9 +1,10 @@
 Metadata-Version: 2.1
-Name: ch9329-comm
-Version: 1.0.0
+Name: ch9329Comm
+Version: 1.0.7
 Summary: 提供CH9329芯片的键盘/鼠标串口快捷通信方法
 Author: 北极小狐
 Author-email: yuhao888123@gmail.com
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
+License-File: LICENSE

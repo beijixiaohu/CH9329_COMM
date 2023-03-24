@@ -1,8 +1,6 @@
-import time
-
 import serial
-from KeyboardDataComm import KeyboardDataComm
-from MouseDataComm import MouseDataComm
+from ch9329Comm import keyboard
+from ch9329Comm import mouse
 
 serial.ser = serial.Serial('COM4', 115200)  # 开启串口
 
