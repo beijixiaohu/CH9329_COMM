@@ -1,6 +1,8 @@
 # ch9329_comm
 
-提供基于 CH9329 芯片的键盘/鼠标串口快捷通信方法
+这是一个 Python 包，其提供了对 CH9329 芯片的快捷通信方法
+
+> CH9329 芯片是沁恒生产的一种串口转HID键盘鼠标芯片，可将上位机发送过来的串口数据转换为标准的 USB 键鼠设备信号发送给下位机，实现硬件级键鼠模拟。
 
 [![ch9329Comm version](https://badge.fury.io/py/ch9329Comm.svg)](https://badge.fury.io/py/ch9329Comm)
 
@@ -14,11 +16,9 @@ pip install ch9329Comm
 
 > **注意！**
 >
-> 请自行将CH9329芯片按以下参数配置，否则某些方法不能正常工作：
+> 请自行将 CH9329 芯片参数修改为：波特率：`115200` 、串口包间隔：`1ms`，否则某些方法不能正常工作。
 >
-> 波特率：`115200` 、串口包间隔：`1ms`
->
-> （可以参考协议文档向串口发送数据包配置，也可以使用厂商的上位机软件配置，注意修改配置后在下一次上电时才会生效）
+> ~（可以参考协议文档向串口发送数据包修改，也可以使用厂商的上位机软件修改，注意修改配置后在下一次上电时才会生效）~
 
 ## 发送键盘数据包
 
@@ -26,7 +26,7 @@ pip install ch9329Comm
 
 ### 初始化
 
-**语法：**
+语法：
 
 ```python
 ch9329Comm.keyboard.DataComm()
@@ -38,7 +38,7 @@ ch9329Comm.keyboard.DataComm()
 
 - 一个 keyboard 模块 DataComm 类的实例
 
-**示例：**
+示例：
 
 ```python
 import ch9329Comm
@@ -48,7 +48,7 @@ keyboard = ch9329Comm.keyboard.DataComm()
 
 ### send_data()
 
-**语法：**
+语法：
 
 ```python
 send_data(data, [ctrl], [port])
@@ -62,7 +62,27 @@ send_data(data, [ctrl], [port])
 
 返回:
 - bool: 如果数据成功发送，则为True，否则为False。
-  
+
+示例：
+
+```python
+import serial
+import ch9329Comm
+
+serial.ser = serial.Serial('COM4', 115200)  # 开启串口
+
+# 键盘输出helloworld
+keyboard = ch9329Comm.keyboard.DataComm()
+keyboard.send_data('HHEELLLLOO')  # 按下HELLO
+keyboard.release()  # 松开
+keyboard.send_data('WWOORRLLDD')  # 按下WORLD
+keyboard.release()  # 松开
+
+serial.ser.close()  # 关闭串口
+```
+
+
+
 > 注意！
 > 无法同时按下多个普通按键，后按下的按键会覆盖原来的按键，哪怕是一次发送多个按键
 
@@ -87,24 +107,6 @@ send_data(data, [ctrl], [port])
 dc = KeyboardDataComm()
 dc.send_data('',0x03) # 按下ctrl+shift
 ```
-**示例：**
-
-```python
-import serial
-import ch9329Comm
-
-serial.ser = serial.Serial('COM4', 115200)  # 开启串口
-
-# 键盘输出helloworld
-keyboard = ch9329Comm.keyboard.DataComm()
-keyboard.send_data('HHEELLLLOO')  # 按下HELLO
-keyboard.release()  # 松开
-keyboard.send_data('WWOORRLLDD')  # 按下WORLD
-keyboard.release()  # 松开
-
-serial.ser.close()  # 关闭串口
-```
-
 ## 发送鼠标数据包
 
 `mouse` 模块的 `DataComm` 类中提供了向串口快速发送鼠标数据包的四个方法：
@@ -117,7 +119,7 @@ serial.ser.close()  # 关闭串口
 
 ### 初始化
 
-**语法：**
+语法：
 
 ```python
 ch9329Comm.mouse.DataComm([screen_width],[screen_height])
@@ -132,7 +134,7 @@ ch9329Comm.mouse.DataComm([screen_width],[screen_height])
 
 - 一个 mouse 模块 DataComm 类的实例
 
-**示例：**
+示例：
 
 ```python
 import ch9329Comm
@@ -146,7 +148,7 @@ mouse = ch9329Comm.mouse.DataComm(1920,1080) # 屏幕分辨率为1920*1080
 
 该方法用于将鼠标闪现到相对于屏幕左上角距离x,y的位置
 
-**语法：**
+语法：
 
 ```python
 send_data_absolute(x, y, [ctrl], [port])
@@ -174,7 +176,7 @@ send_data_absolute(x, y, [ctrl], [port])
 
 你也可以传入一个16进制的数值以发送组合键，形如`0x00`，关于数值的定义与通信协议文档中相同
 
-**示例：**
+示例：
 
 ```python
 import serial
@@ -192,7 +194,7 @@ serial.ser.close()  # 关闭串口
 
 该方法用于将鼠标闪现到以鼠标当前位置为原点的坐标系上点(x,y)的位置
 
-**语法：**
+语法：
 
 ```python
 send_data_relatively(x, y, [ctrl], [port])
@@ -218,7 +220,7 @@ send_data_relatively(x, y, [ctrl], [port])
 
 你也可以传入一个16进制的数值以发送组合键，形如`0x00`，关于数值的定义与通信协议文档中相同
 
-**示例：**
+示例：
 
 ```python
 import serial
@@ -236,11 +238,13 @@ serial.ser.close()  # 关闭串口
 
 ### move_to_basic()
 
-该方法会调用`BezierTrajectory`类中的轨迹生成方法，自动生成随机路径，并将路径分解为步长 0 ~ 2px 的路径点的集合，
+该方法用于将鼠标沿随机生成的轨迹移动到以鼠标当前位置为原点的坐标系上点(x,y)的位置
 
-其以每 1.6ms 一个的频率发送数据包，因此指针每1.6ms最多会在屏幕上移动两个像素点（大部分时间只会移动1个像素点）
+其会调用`BezierTrajectory`类中的方法，自动生成随机路径，并将路径分解为步长 0 ~ 2px 的路径点的集合，
 
-**语法：**
+其以每 1.6ms 一个的频率发送数据包，指针每1.6ms最多会在屏幕上移动两个像素点（大部分时间只会移动1个像素点）
+
+语法：
 
 ```python
 move_to_basic(x, y, ctrl, port)
@@ -268,7 +272,9 @@ move_to_basic(x, y, ctrl, port)
 
 ### move_to()
 
-该方法是对于 `move_to_basic()` 的改进方法，添加了自动误差校正
+将鼠标沿随机生成的轨迹移动到以鼠标当前位置为原点的坐标系上点(x,y)的位置
+
+其是对于 `move_to_basic()` 的改进方法，添加了自动误差校正
 
 > **注意初始化：**
 >
@@ -280,7 +286,7 @@ move_to_basic(x, y, ctrl, port)
 >
 > 其会将在修正值存储在 `\corrector\information.json`中，以后调用该方法时会自动到文件中读取修正值，如果需要重新生成校正值，请手动删除 `\corrector\information.json` 文件
 
-**语法：**
+语法：
 
 ```python
 move_to(dest_x, dest_y, ctrl, port)
@@ -307,7 +313,7 @@ move_to(dest_x, dest_y, ctrl, port)
 
 你也可以传入一个16进制的数值以发送组合键，形如`0x00`，关于数值的定义与通信协议文档中相同
 
-**示例：**
+示例：
 
 ```python
 import serial
