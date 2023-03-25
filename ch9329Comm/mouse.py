@@ -285,7 +285,7 @@ class DataComm:
         port (serial, optional)：要使用的串口。默认为serial。
 
     返回：
-        difference_ratio：鼠标指针实际移动量与目标移动量的比值（0 ~ 1）
+        None
     """
     
     def move_to(self, dest_x: int, dest_y: int, ctrl: str = '', port: serial = serial) -> None:
@@ -297,8 +297,8 @@ class DataComm:
         end_x, end_y = pyautogui.position()
         distance = ((end_x - start_x) ** 2 + (end_y - start_y) ** 2) ** 0.5
         difference_ratio = distance / (((dest_x ** 2) + (dest_y ** 2)) ** 0.5)
-
-        return difference_ratio
+        # test
+        print("理论值与实际值之间的差异：", (difference_ratio * 100), "%")
 
     """
     单击鼠标左键。

@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="ch9329Comm",
-    version="1.0.9",
+    version="1.0.8",
     author="北极小狐",
     author_email="yuhao888123@gmail.com",
     description="提供CH9329芯片的键盘/鼠标串口快捷通信方法",
