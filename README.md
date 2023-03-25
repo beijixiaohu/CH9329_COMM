@@ -309,7 +309,8 @@ move_to(dest_x, dest_y, ctrl, port)
 - port (serial, optional)：要使用的串口。默认为serial。
 
 返回：
-    None
+
+- difference_ratio：鼠标指针实际移动量与目标移动量的比值（0 ~ 1）
 
 示例：
 
