@@ -104,8 +104,16 @@ serial.ser.close()  # 关闭串口
 示例：
 
 ```python
-dc = KeyboardDataComm()
-dc.send_data('',0x03) # 按下ctrl+shift
+import serial
+import ch9329Comm
+
+serial.ser = serial.Serial('COM4', 115200)  # 开启串口
+
+keyboard = ch9329Comm.keyboard.DataComm()
+keyboard.send_data('',0x03) # 同时按下ctrl+shift
+keyboard.release()  # 松开
+
+serial.ser.close()  # 关闭串口
 ```
 ## 发送鼠标数据包
 
@@ -146,7 +154,7 @@ mouse = ch9329Comm.mouse.DataComm(1920,1080) # 屏幕分辨率为1920*1080
 
 ### send_data_absolute()
 
-该方法用于将鼠标闪现到相对于屏幕左上角距离x,y的位置
+将鼠标闪现到相对于屏幕左上角距离x,y的位置
 
 语法：
 
@@ -192,7 +200,7 @@ serial.ser.close()  # 关闭串口
 
 ### send_data_relatively()
 
-该方法用于将鼠标闪现到以鼠标当前位置为原点的坐标系上点(x,y)的位置
+将鼠标闪现到以鼠标当前位置为原点的坐标系上点(x,y)的位置
 
 语法：
 
@@ -238,7 +246,7 @@ serial.ser.close()  # 关闭串口
 
 ### move_to_basic()
 
-该方法用于将鼠标沿随机生成的轨迹移动到以鼠标当前位置为原点的坐标系上点(x,y)的位置
+将鼠标沿随机生成的轨迹移动到以鼠标当前位置为原点的坐标系上点(x,y)的位置
 
 其会调用`BezierTrajectory`类中的方法，自动生成随机路径，并将路径分解为步长 0 ~ 2px 的路径点的集合，
 
@@ -270,7 +278,7 @@ move_to_basic(x, y, ctrl, port)
 
 你也可以传入一个16进制的数值以发送组合键，形如`0x00`，关于数值的定义与通信协议文档中相同
 
-### move_to()
+### move_to()（推荐）
 
 将鼠标沿随机生成的轨迹移动到以鼠标当前位置为原点的坐标系上点(x,y)的位置
 

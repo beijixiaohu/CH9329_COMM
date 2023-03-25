@@ -22,8 +22,8 @@ serial.ser = serial.Serial('COM4', 115200)  # 开启串口
 # dc2 = MouseDataComm()
 # dc2.move_to(-100, -100)
 
-# 校验
-dc2 = MouseDataComm()
-dc2.move_to(-230,-480)
+# # 校验
+# dc2 = MouseDataComm()
+# dc2.move_to(-230,-480)
 
 serial.ser.close()  # 关闭串口
